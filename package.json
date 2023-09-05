@@ -11,5 +11,8 @@
     "url": "/sanekcraft/express-js-test"
   },
   "author": "sanekcraft",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
 }
