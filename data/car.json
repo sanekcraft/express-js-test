@@ -1,0 +1,329 @@
+[
+    {
+        "Model": "Camry 2.0",
+        "YearOfManufacture": 2021,
+        "EngineCapacity": 190,
+        "TransmissionType": [
+            1,
+            2,
+            3
+        ],
+        "Color": "White",
+        "Height": 1445,
+        "Width": 1840,
+        "Length": 4885,
+        "Weight": 1620,
+        "TopSpeed": 220,
+        "ZeroTo100Time": 8.5,
+        "FuelTankSize": 60,
+        "ManufacturerId": 1,
+        "_id": 1
+    },
+    {
+        "Model": "Civic",
+        "YearOfManufacture": 2022,
+        "EngineCapacity": 150,
+        "TransmissionType": [
+            1,
+            4
+        ],
+        "Color": "Blue",
+        "Height": 1400,
+        "Width": 1770,
+        "Length": 4640,
+        "Weight": 1300,
+        "TopSpeed": 200,
+        "ZeroTo100Time": 7.5,
+        "FuelTankSize": 50,
+        "ManufacturerId": 2,
+        "_id": 2
+    },
+    {
+        "Model": "Mustang GT",
+        "YearOfManufacture": 2021,
+        "EngineCapacity": 500,
+        "TransmissionType": [
+            2
+        ],
+        "Color": "Red",
+        "Height": 1370,
+        "Width": 1915,
+        "Length": 4788,
+        "Weight": 1693,
+        "TopSpeed": 250,
+        "ZeroTo100Time": 4.3,
+        "FuelTankSize": 70,
+        "ManufacturerId": 3,
+        "_id": 3
+    },
+    {
+        "Model": "Cruze",
+        "YearOfManufacture": 2015,
+        "EngineCapacity": 160,
+        "TransmissionType": [
+            1
+        ],
+        "Color": "Silver",
+        "Height": 1453,
+        "Width": 1797,
+        "Length": 4665,
+        "Weight": 1405,
+        "TopSpeed": 190,
+        "ZeroTo100Time": 9.8,
+        "FuelTankSize": 52,
+        "ManufacturerId": 4,
+        "_id": 4
+    },
+    {
+        "Model": "Altima",
+        "YearOfManufacture": 2018,
+        "EngineCapacity": 180,
+        "TransmissionType": [
+            4
+        ],
+        "Color": "Black",
+        "Height": 1470,
+        "Width": 1830,
+        "Length": 4830,
+        "Weight": 1500,
+        "TopSpeed": 210,
+        "ZeroTo100Time": 7.2,
+        "FuelTankSize": 60,
+        "ManufacturerId": 5,
+        "_id": 5
+    },
+    {
+        "Model": "3 Series",
+        "YearOfManufacture": 2020,
+        "EngineCapacity": 220,
+        "TransmissionType": [
+            1
+        ],
+        "Color": "Gray",
+        "Height": 1435,
+        "Width": 1827,
+        "Length": 4719,
+        "Weight": 1570,
+        "TopSpeed": 240,
+        "ZeroTo100Time": 6.5,
+        "FuelTankSize": 59,
+        "ManufacturerId": 6,
+        "_id": 6
+    },
+    {
+        "Model": "C-Class",
+        "YearOfManufacture": 2023,
+        "EngineCapacity": 250,
+        "TransmissionType": [
+            1
+        ],
+        "Color": "White",
+        "Height": 1442,
+        "Width": 1810,
+        "Length": 4686,
+        "Weight": 1650,
+        "TopSpeed": 230,
+        "ZeroTo100Time": 5.8,
+        "FuelTankSize": 58,
+        "ManufacturerId": 7,
+        "_id": 7
+    },
+    {
+        "Model": "A4",
+        "YearOfManufacture": 2019,
+        "EngineCapacity": 200,
+        "TransmissionType": [
+            1
+        ],
+        "Color": "Blue",
+        "Height": 1427,
+        "Width": 1842,
+        "Length": 4726,
+        "Weight": 1540,
+        "TopSpeed": 235,
+        "ZeroTo100Time": 6,
+        "FuelTankSize": 54,
+        "ManufacturerId": 8,
+        "_id": 8
+    },
+    {
+        "Model": "Passat",
+        "YearOfManufacture": 2016,
+        "EngineCapacity": 170,
+        "TransmissionType": [
+            1
+        ],
+        "Color": "Silver",
+        "Height": 1472,
+        "Width": 1832,
+        "Length": 4767,
+        "Weight": 1496,
+        "TopSpeed": 220,
+        "ZeroTo100Time": 8.2,
+        "FuelTankSize": 66,
+        "ManufacturerId": 9,
+        "_id": 9
+    },
+    {
+        "Model": "6",
+        "YearOfManufacture": 2021,
+        "EngineCapacity": 186,
+        "TransmissionType": [
+            1
+        ],
+        "Color": "Red",
+        "Height": 1445,
+        "Width": 1840,
+        "Length": 4860,
+        "Weight": 1470,
+        "TopSpeed": 210,
+        "ZeroTo100Time": 7,
+        "FuelTankSize": 51,
+        "ManufacturerId": 10,
+        "_id": 10
+    },
+    {
+        "Model": "Sonata",
+        "YearOfManufacture": 2020,
+        "EngineCapacity": 180,
+        "TransmissionType": [
+            1
+        ],
+        "Color": "Black",
+        "Height": 1449,
+        "Width": 1864,
+        "Length": 4905,
+        "Weight": 1600,
+        "TopSpeed": 220,
+        "ZeroTo100Time": 7.5,
+        "FuelTankSize": 70,
+        "ManufacturerId": 11,
+        "_id": 11
+    },
+    {
+        "Model": "Optima",
+        "YearOfManufacture": 2017,
+        "EngineCapacity": 160,
+        "TransmissionType": [
+            1
+        ],
+        "Color": "Gray",
+        "Height": 1465,
+        "Width": 1860,
+        "Length": 4855,
+        "Weight": 1550,
+        "TopSpeed": 210,
+        "ZeroTo100Time": 8,
+        "FuelTankSize": 62,
+        "ManufacturerId": 12,
+        "_id": 12
+    },
+    {
+        "Model": "Legacy",
+        "YearOfManufacture": 2023,
+        "EngineCapacity": 200,
+        "TransmissionType": [
+            4
+        ],
+        "Color": "Green",
+        "Height": 1485,
+        "Width": 1825,
+        "Length": 4745,
+        "Weight": 1530,
+        "TopSpeed": 220,
+        "ZeroTo100Time": 7.8,
+        "FuelTankSize": 55,
+        "ManufacturerId": 13,
+        "_id": 13
+    },
+    {
+        "Model": "ES 350",
+        "YearOfManufacture": 2019,
+        "EngineCapacity": 300,
+        "TransmissionType": [
+            1
+        ],
+        "Color": "White",
+        "Height": 1430,
+        "Width": 1864,
+        "Length": 4976,
+        "Weight": 1700,
+        "TopSpeed": 230,
+        "ZeroTo100Time": 6.6,
+        "FuelTankSize": 65,
+        "ManufacturerId": 14,
+        "_id": 14
+    },
+    {
+        "Model": "XE",
+        "YearOfManufacture": 2022,
+        "EngineCapacity": 250,
+        "TransmissionType": [
+            1
+        ],
+        "Color": "Blue",
+        "Height": 1416,
+        "Width": 1850,
+        "Length": 4678,
+        "Weight": 1550,
+        "TopSpeed": 240,
+        "ZeroTo100Time": 6.3,
+        "FuelTankSize": 56,
+        "ManufacturerId": 15,
+        "_id": 15
+    },
+    {
+        "Model": "Q50",
+        "YearOfManufacture": 2018,
+        "EngineCapacity": 300,
+        "TransmissionType": [
+            1
+        ],
+        "Color": "Black",
+        "Height": 1445,
+        "Width": 1820,
+        "Length": 4800,
+        "Weight": 1610,
+        "TopSpeed": 230,
+        "ZeroTo100Time": 6.4,
+        "FuelTankSize": 70,
+        "ManufacturerId": 16,
+        "_id": 16
+    },
+    {
+        "Model": "S60",
+        "YearOfManufacture": 2020,
+        "EngineCapacity": 250,
+        "TransmissionType": [
+            1
+        ],
+        "Color": "Gray",
+        "Height": 1431,
+        "Width": 1850,
+        "Length": 4761,
+        "Weight": 1650,
+        "TopSpeed": 230,
+        "ZeroTo100Time": 6.7,
+        "FuelTankSize": 60,
+        "ManufacturerId": 17,
+        "_id": 17
+    },
+    {
+        "Model": "508",
+        "YearOfManufacture": 2015,
+        "EngineCapacity": 180,
+        "TransmissionType": [
+            1
+        ],
+        "Color": "Silver",
+        "Height": 1425,
+        "Width": 1859,
+        "Length": 4750,
+        "Weight": 1560,
+        "TopSpeed": 210,
+        "ZeroTo100Time": 8.1,
+        "FuelTankSize": 55,
+        "ManufacturerId": 18,
+        "_id": 18
+    }
+]

@@ -1,0 +1,92 @@
+[
+    {
+        "_id": 1,
+        "Name": "Toyota",
+        "Logo": "/carlogo/toyota-logo.png"
+    },
+    {
+        "_id": 2,
+        "Name": "Honda",
+        "Logo": "/carlogo/honda-logo.png"
+    },
+    {
+        "_id": 3,
+        "Name": "Ford",
+        "Logo": "/carlogo/ford-logo.png"
+    },
+    {
+        "_id": 4,
+        "Name": "Chevrolet",
+        "Logo": "/carlogo/chevrolet-logo.png"
+    },
+    {
+        "_id": 5,
+        "Name": "Nissan",
+        "Logo": "/carlogo/nissan-logo.png"
+    },
+    {
+        "_id": 6,
+        "Name": "BMW",
+        "Logo": "/carlogo/bmw-logo.png"
+    },
+    {
+        "_id": 7,
+        "Name": "Mercedes-Benz",
+        "Logo": "/carlogo/mercedes-logo.png"
+    },
+    {
+        "_id": 8,
+        "Name": "Audi",
+        "Logo": "/carlogo/audi-logo.png"
+    },
+    {
+        "_id": 9,
+        "Name": "Volkswagen",
+        "Logo": "/carlogo/vw-logo.png"
+    },
+    {
+        "_id": 10,
+        "Name": "Mazda",
+        "Logo": "/carlogo/mazda-logo.png"
+    },
+    {
+        "_id": 11,
+        "Name": "Hyundai",
+        "Logo": "/carlogo/hyundai-logo.png"
+    },
+    {
+        "_id": 12,
+        "Name": "Kia",
+        "Logo": "/carlogo/kia-logo.png"
+    },
+    {
+        "_id": 13,
+        "Name": "Subaru",
+        "Logo": "/carlogo/subaru-logo.png"
+    },
+    {
+        "_id": 14,
+        "Name": "Lexus",
+        "Logo": "/carlogo/lexus-logo.png"
+    },
+    {
+        "_id": 15,
+        "Name": "Jaguar",
+        "Logo": "/carlogo/jaguar-logo.png"
+    },
+    {
+        "_id": 16,
+        "Name": "Infiniti",
+        "Logo": "/carlogo/infiniti-logo.png"
+    },
+    {
+        "_id": 17,
+        "Name": "Volvo",
+        "Logo": "/carlogo/volvo-logo.png"
+    },
+    {
+        "_id": 18,
+        "Name": "Peugeot",
+        "Logo": "/carlogo/peugeot-logo.png"
+    }
+]
