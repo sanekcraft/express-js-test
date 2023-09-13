@@ -24,6 +24,7 @@ function isMatchFilter(ManufacturerNameElement, element, filterObj) {
     let isFuelTankSize = element.FuelTankSize >= filterObj.searchFuelTank
     let isAceletation = element.ZeroTo100Time >= filterObj.searchAcceleration
     return ((isModelMatch || isNameMatch) && isTopSpeedMatch && isTransmissionMatch && isFuelTankSize && isAceletation)
+//     to chto v mongo find -  isModelMatch && isNameMatch && isTopSpeedMatch && isTransmissionMatch && isFuelTankSize && isAceletation
 }
 
 async function getCarsFiltered(carListArray, filterObj) {

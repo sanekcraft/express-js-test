@@ -1,6 +1,6 @@
- 
+
 const { Config } = require('../environment')
-const { MongoClient } = require('mongodb');
+const { MongoClient, Collection, Document } = require('mongodb');
 
 
 //єто будет класс, то есть для каждого "подключения" мы будем создавать новый екземпляр класса монгоДБСервис, андесентд? Yes
@@ -46,10 +46,8 @@ class MongoDBService {
     }
 
     /**
-    * @return {Promise<Car[]>}
+    * @return {Promise<Collection<Document>>}
     */
-
-
     async getCollection(dbName, collectionName) {
         const client = await this.GetMongoClient();
         const db = client.db(dbName);
@@ -79,11 +77,53 @@ class MongoDBService {
         return (await collection.find({ _id: id }).toArray())[0]
     }
 
-    async GetMoreInfoById(id){
+    async GetMoreInfoById(id) {
         const collection = await this.getCollection(this.DbName, this.Collections.CarMoreInfoList)
         return (await collection.find({ CarId: id }).toArray())[0]
     }
 
+    async GetManufacturerListByNameFilter(searchString) {
+        const collection = await this.getCollection(this.DbName, this.Collections.ManufacturerList)
+        let manList = await collection.find({
+            Name: { $regex: `^${searchString}.*`, $options: "i" }
+        }).toArray();
+        return manList.map(x => x._id);
+    }
+
+    getSortOrderObject(sortOrder) {
+        switch (sortOrder) {
+            case 'name-asc': return { Model: 1 }
+            case 'name-desc': return { Model: -1 }
+            
+            case 'years-asc': return { YearOfManufacture: 1 }
+            case 'years-desc': return { YearOfManufacture: -1 }
+
+            case 'engine-power-asc':return { EngineCapacity: 1 }
+
+            case 'engine-power-desc':return { EngineCapacity: -1 }
+
+        }
+    }
+    async GetFilterCars(FilterInfo) {
+        const collection = await this.getCollection(this.DbName, this.Collections.CarList);
+        let manIdList = await this.GetManufacturerListByNameFilter(FilterInfo.searchString);
+        const mongoFilterObject = {
+            $and: [
+                {
+                    $or: [
+                        { Model: { $regex: `^${FilterInfo.searchString}.*`, $options: "i" } },
+                        { ManufacturerId: { $in: manIdList } }
+                    ]
+                },
+                { TopSpeed: { $gte: FilterInfo.searchSpeed } },
+                { FuelTankSize: { $gte: FilterInfo.searchFuelTank } },
+                { ZeroTo100Time: { $gte: FilterInfo.searchAcceleration } },
+                { TransmissionType: { $in: FilterInfo.searchTransmission } },
+            ]
+        };
+        let sortObject = this.getSortOrderObject(FilterInfo.sortOrder);
+        return await collection.find(mongoFilterObject).sort(sortObject).toArray()
+    }
 
     //ok, poka sho mi niche eshe ne dostali, prosto poluchili DB and collection, teper from collection we can get data, lets see how    
 

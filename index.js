@@ -20,7 +20,7 @@ app.get('/getCarList', async function (req, res) {
     car.Id = car._id;
     delete (car._id)
     for (let man of ManufacturerList) {
-      if (car.ManufacturerId = man._id) {
+      if (car.ManufacturerId == man._id) {
         delete (car.ManufacturerId)
         car.Manufacturer = man
       }
@@ -34,21 +34,19 @@ app.get('/getCarList', async function (req, res) {
 // nu i poh poka sho, lets try
 app.post('/filterAndSortBy', async function (req, res) {
   const mongoService = new MongoDBService();
-  let carArray = await mongoService.GetAllCars();
+  let carFilterArray = await mongoService.GetFilterCars(req.body);
   let ManufacturerList = await mongoService.GetAllManufacturer();
-  for (let car of carArray) {
+  for (let car of carFilterArray) {
     car.Id = car._id;
     delete (car._id)
     for (let man of ManufacturerList) {
-      if (car.ManufacturerId = man._id) {
+      if (car.ManufacturerId == man._id) {
         delete (car.ManufacturerId)
         car.Manufacturer = man
       }
     }
   }
-
-  let CarsFiltered = await getCarsFiltered(carArray, req.body)
-  res.send(CarsFiltered);
+  res.send(carFilterArray);
 })
 app.get('/test', async function (req, res) {
   let manList = await getManufactureNameClass();
