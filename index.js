@@ -15,17 +15,7 @@ app.get('/', function (req, res) {
 app.get('/getCarList', async function (req, res) {
   const mongoService = new MongoDBService();
   let carArray = await mongoService.GetAllCars();
-  let ManufacturerList = await mongoService.GetAllManufacturer();
-  for (let car of carArray) {
-    car.Id = car._id;
-    delete (car._id)
-    for (let man of ManufacturerList) {
-      if (car.ManufacturerId == man._id) {
-        delete (car.ManufacturerId)
-        car.Manufacturer = man
-      }
-    }
-  }
+  carArray = await mongoService.DecorateCarList(carArray);
   res.send(carArray);
 })
 
@@ -35,17 +25,7 @@ app.get('/getCarList', async function (req, res) {
 app.post('/filterAndSortBy', async function (req, res) {
   const mongoService = new MongoDBService();
   let carFilterArray = await mongoService.GetFilterCars(req.body);
-  let ManufacturerList = await mongoService.GetAllManufacturer();
-  for (let car of carFilterArray) {
-    car.Id = car._id;
-    delete (car._id)
-    for (let man of ManufacturerList) {
-      if (car.ManufacturerId == man._id) {
-        delete (car.ManufacturerId)
-        car.Manufacturer = man
-      }
-    }
-  }
+  carFilterArray = await mongoService.DecorateCarList(carFilterArray)
   res.send(carFilterArray);
 })
 app.get('/test', async function (req, res) {
@@ -78,9 +58,23 @@ app.get('/getCar', async function (req, res) {
   car.Manufacturer = man
   res.send(car)
 })
+app.get('/AddFavCar',async function(req,res){
+  const mongoService = new MongoDBService();
+  let id = Number(req.query['id'])
+  await mongoService.AddFavCarList(id)
+  res.send(200);
+})
+app.get('/RemoveFavCar',async function(req,res){
+  const mongoService = new MongoDBService();
+  let id = Number(req.query['id'])
+  await mongoService.RemoveFavCarList(id)
+  res.send(200);
+})
+
 app.post('/getCarFav', async function (req, res) {
-  let carListArray = await readFileAsJSON('car.json')
-  let FavCars = await getFavCars(carListArray, req.body)
-  res.send(FavCars)
+  const mongoService = new MongoDBService();
+  let carListArray = await mongoService.GetFavCarList(); 
+  carListArray = await mongoService.DecorateCarList(carListArray)
+  res.send(carListArray)
 })
 app.listen(3000)

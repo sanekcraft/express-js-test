@@ -11,7 +11,8 @@ class MongoDBService {
     Collections = {
         CarList: "CarList",
         ManufacturerList: "ManufacturerList",
-        CarMoreInfoList: "CarMoreInfoList"
+        CarMoreInfoList: "CarMoreInfoList",
+        FavCarList: "FavCarList"
     }
 
     constructor() {
@@ -65,6 +66,11 @@ class MongoDBService {
         const collection = await this.getCollection(this.DbName, this.Collections.CarList)
         return (await collection.find({ _id: id }).toArray())[0];
     }
+    async GetCarByIdList(idList) {
+
+        const collection = await this.getCollection(this.DbName, this.Collections.CarList)
+        return await collection.find({ _id: { $in: idList } }).toArray();
+    }
     // mnoga povtoriaetsa odno i tozhe, ne horosho, nada shob mense bilo povtorenia, andestend Yes toka sho tyt sdelat to
     // new function
     async GetAllManufacturer() {
@@ -94,13 +100,13 @@ class MongoDBService {
         switch (sortOrder) {
             case 'name-asc': return { Model: 1 }
             case 'name-desc': return { Model: -1 }
-            
+
             case 'years-asc': return { YearOfManufacture: 1 }
             case 'years-desc': return { YearOfManufacture: -1 }
 
-            case 'engine-power-asc':return { EngineCapacity: 1 }
+            case 'engine-power-asc': return { EngineCapacity: 1 }
 
-            case 'engine-power-desc':return { EngineCapacity: -1 }
+            case 'engine-power-desc': return { EngineCapacity: -1 }
 
         }
     }
@@ -124,10 +130,38 @@ class MongoDBService {
         let sortObject = this.getSortOrderObject(FilterInfo.sortOrder);
         return await collection.find(mongoFilterObject).sort(sortObject).toArray()
     }
+    async DecorateCarList(carList) {
+        let ManufacturerList = await this.GetAllManufacturer();
+        let FavCarList = await this.GetFavCarsID(1)//  tut masiv
+        for (let car of carList) {
+            car.Id = car._id;
+            delete (car._id)
 
-    //ok, poka sho mi niche eshe ne dostali, prosto poluchili DB and collection, teper from collection we can get data, lets see how    
+            car.IsFaved = FavCarList.includes(car.Id);//true\false;
 
-    // teper mi mozhem poprobovat is it workeng vobshe, nuzhno zamenit ispolzovanie json, tam gde endpoit kotorii delaet getAll cars, change it please
+            car.Manufacturer = ManufacturerList.find(x => x._id == car.ManufacturerId);
+            delete (car.ManufacturerId)
+        }
+        return carList
+    }
+    async GetFavCarsID(id) {
+        const collection = await this.getCollection(this.DbName, this.Collections.FavCarList)
+        return (await collection.find({ _id: id }).toArray())[0].IdList; // {_id:1, IdList:[...]}
+    }
+
+    async GetFavCarList() {
+        const favCarIdList = await this.GetFavCarsID(1);
+        const carList = await this.GetCarByIdList(favCarIdList);
+        return carList;
+    }
+    async AddFavCarList(id) {
+        const collection = await this.getCollection(this.DbName, this.Collections.FavCarList)
+        return await collection.updateOne({ _id: 1 },{ $push: { IdList: id } })
+    }
+    async RemoveFavCarList(id) {
+        const collection = await this.getCollection(this.DbName, this.Collections.FavCarList)
+        return await collection.updateOne({ _id: 1 },{ $pull: { IdList: id } })
+    }
 }
 
 module.exports = {
