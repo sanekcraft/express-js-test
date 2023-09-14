@@ -3,8 +3,6 @@ const { Config } = require('../environment')
 const { MongoClient, Collection, Document } = require('mongodb');
 
 
-//єто будет класс, то есть для каждого "подключения" мы будем создавать новый екземпляр класса монгоДБСервис, андесентд? Yes
-
 class MongoDBService {
 
     DbName = "CarShop";
@@ -18,23 +16,12 @@ class MongoDBService {
     constructor() {
 
     }
-
-    // mi nikogda ne budem use this var potomusha ono u nas budet tolko dla togo
-    //shob odin raz sdelat client, mi potom budem vsegda usat function shob get client
-    // andested?Yes
     MongoClient;
 
     /**
     * @return {Promise<MongoClient>} 
     */
     async GetMongoClient() {
-
-        //a shas budet magic of 3 tochka, look
-        // nema 3 tochka as you can see but its same thing vnutri, kak 3 tochka delaet to tut eta zhe ficha
-        // andestend?? Poka ne osobo
-        //a shas no tam config do Host bulo
-        // vse ravno ne aneds ponel vse)
-
         if (this.MongoClient == null) {
 
             const { Host, Port } = Config.MongoDB;
@@ -71,8 +58,7 @@ class MongoDBService {
         const collection = await this.getCollection(this.DbName, this.Collections.CarList)
         return await collection.find({ _id: { $in: idList } }).toArray();
     }
-    // mnoga povtoriaetsa odno i tozhe, ne horosho, nada shob mense bilo povtorenia, andestend Yes toka sho tyt sdelat to
-    // new function
+
     async GetAllManufacturer() {
         const collection = await this.getCollection(this.DbName, this.Collections.ManufacturerList)
         return await collection.find().toArray()
@@ -156,11 +142,22 @@ class MongoDBService {
     }
     async AddFavCarList(id) {
         const collection = await this.getCollection(this.DbName, this.Collections.FavCarList)
-        return await collection.updateOne({ _id: 1 },{ $push: { IdList: id } })
+        return await collection.updateOne({ _id: 1 }, { $push: { IdList: id } })
     }
     async RemoveFavCarList(id) {
         const collection = await this.getCollection(this.DbName, this.Collections.FavCarList)
-        return await collection.updateOne({ _id: 1 },{ $pull: { IdList: id } })
+        return await collection.updateOne({ _id: 1 }, { $pull: { IdList: id } })
+    }
+    async FavCarAmount() {
+        const collection = await this.getCollection(this.DbName, this.Collections.FavCarList);
+        let count = (await collection.aggregate([{
+            $match: { _id: 1 },
+        },
+        {
+            $project: { count: { $size: "$IdList" } }
+
+        }]).toArray())[0].count;
+        return count
     }
 }
 

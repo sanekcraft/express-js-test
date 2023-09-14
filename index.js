@@ -70,11 +70,20 @@ app.get('/RemoveFavCar',async function(req,res){
   await mongoService.RemoveFavCarList(id)
   res.send(200);
 })
-
+app.get('/GetFavCarAmount', async function (req,res){
+  const mongoService = new MongoDBService();
+  let amount = await mongoService.FavCarAmount()
+  res.send(`${amount}`)
+})
 app.post('/getCarFav', async function (req, res) {
   const mongoService = new MongoDBService();
   let carListArray = await mongoService.GetFavCarList(); 
   carListArray = await mongoService.DecorateCarList(carListArray)
   res.send(carListArray)
+})
+app.get('/getManufacturerList',async function(req,res){
+  const mongoService = new MongoDBService();
+  let ManufacturerList = await mongoService.GetAllManufacturer();
+  res.send(ManufacturerList)
 })
 app.listen(3000)
