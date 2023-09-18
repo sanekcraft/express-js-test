@@ -90,11 +90,11 @@ app.post(`/createNewCar`,async function(req,res){
   const mongoService = new MongoDBService();
   let newId = await mongoService.maxIdCar()
   let carSetId = req.body.Car
-  carSetId._id = newId[0]
+  carSetId._id = newId;
   let carSetMoreInfoId = req.body.MoreInfo
-  carSetMoreInfoId.CarId = newId[0]
+  carSetMoreInfoId.CarId = newId;
   let carArray = await mongoService.createNewCar(carSetId)
   let carMoreInfo = await mongoService.createNewCarMoreInfo(carSetMoreInfoId)
-  res.send(200)
+  res.send({id: newId})
 })
 app.listen(3000)

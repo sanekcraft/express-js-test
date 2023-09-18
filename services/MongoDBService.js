@@ -160,16 +160,17 @@ class MongoDBService {
         return count
     }
     async maxIdCar() {
-        const collection = await this.getCollection(this.DbName, this.Collections.CarList)
-        return (await collection.find().sort({ "_id": -1 }).limit(1).toArray()).map(function (u) { return (u._id + 1) })
+        const collection = await this.getCollection(this.DbName, this.Collections.CarList);
+        let [{_id}] = await collection.find().sort({ "_id": -1 }).limit(1).project({_id:1}).toArray();
+        return _id + 1;
     }
     async createNewCar(car) {
-        const collection = await this.getCollection(this.dbName, this.Collections.CarList)
+        const collection = await this.getCollection(this.DbName, this.Collections.CarList)
         await collection.insertOne(car)
         return 200
     }
     async createNewCarMoreInfo(moreInfo) {
-        const collection = await this.getCollection(this.dbName, this.collection.CarMoreInfoList)
+        const collection = await this.getCollection(this.DbName, this.Collections.CarMoreInfoList)
         await collection.insertOne(moreInfo)
         return 200
     }
