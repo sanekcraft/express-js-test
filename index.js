@@ -86,4 +86,15 @@ app.get('/getManufacturerList',async function(req,res){
   let ManufacturerList = await mongoService.GetAllManufacturer();
   res.send(ManufacturerList)
 })
+app.post(`/createNewCar`,async function(req,res){
+  const mongoService = new MongoDBService();
+  let newId = await mongoService.maxIdCar()
+  let carSetId = req.body.Car
+  carSetId._id = newId[0]
+  let carSetMoreInfoId = req.body.MoreInfo
+  carSetMoreInfoId.CarId = newId[0]
+  let carArray = await mongoService.createNewCar(carSetId)
+  let carMoreInfo = await mongoService.createNewCarMoreInfo(carSetMoreInfoId)
+  res.send(200)
+})
 app.listen(3000)
