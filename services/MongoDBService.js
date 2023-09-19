@@ -161,18 +161,16 @@ class MongoDBService {
     }
     async maxIdCar() {
         const collection = await this.getCollection(this.DbName, this.Collections.CarList);
-        let [{_id}] = await collection.find().sort({ "_id": -1 }).limit(1).project({_id:1}).toArray();
+        let [{ _id }] = await collection.find().sort({ "_id": -1 }).limit(1).project({ _id: 1 }).toArray();
         return _id + 1;
     }
     async createNewCar(car) {
         const collection = await this.getCollection(this.DbName, this.Collections.CarList)
-        await collection.insertOne(car)
-        return 200
+        await collection.replaceOne({ _id: car._id },car,{upsert:true})
     }
     async createNewCarMoreInfo(moreInfo) {
         const collection = await this.getCollection(this.DbName, this.Collections.CarMoreInfoList)
-        await collection.insertOne(moreInfo)
-        return 200
+        await collection.replaceOne({ _id: moreInfo._id },moreInfo,{upsert:true})
     }
 }
 

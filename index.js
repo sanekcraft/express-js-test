@@ -35,7 +35,7 @@ app.get('/test', async function (req, res) {
 app.get('/getMoreInfo', async function (req, res) {
   const mongoService = new MongoDBService()
   let id = Number(req.query['id']);
-  
+
   let car = await mongoService.GetCarById(id)
   car.Id = car._id;
   delete (car._id)
@@ -58,43 +58,46 @@ app.get('/getCar', async function (req, res) {
   car.Manufacturer = man
   res.send(car)
 })
-app.get('/AddFavCar',async function(req,res){
+app.get('/AddFavCar', async function (req, res) {
   const mongoService = new MongoDBService();
   let id = Number(req.query['id'])
   await mongoService.AddFavCarList(id)
   res.send(200);
 })
-app.get('/RemoveFavCar',async function(req,res){
+app.get('/RemoveFavCar', async function (req, res) {
   const mongoService = new MongoDBService();
   let id = Number(req.query['id'])
   await mongoService.RemoveFavCarList(id)
   res.send(200);
 })
-app.get('/GetFavCarAmount', async function (req,res){
+app.get('/GetFavCarAmount', async function (req, res) {
   const mongoService = new MongoDBService();
   let amount = await mongoService.FavCarAmount()
   res.send(`${amount}`)
 })
 app.post('/getCarFav', async function (req, res) {
   const mongoService = new MongoDBService();
-  let carListArray = await mongoService.GetFavCarList(); 
+  let carListArray = await mongoService.GetFavCarList();
   carListArray = await mongoService.DecorateCarList(carListArray)
   res.send(carListArray)
 })
-app.get('/getManufacturerList',async function(req,res){
+app.get('/getManufacturerList', async function (req, res) {
   const mongoService = new MongoDBService();
   let ManufacturerList = await mongoService.GetAllManufacturer();
   res.send(ManufacturerList)
 })
-app.post(`/createNewCar`,async function(req,res){
+app.post(`/createNewCar`, async function (req, res) {
   const mongoService = new MongoDBService();
-  let newId = await mongoService.maxIdCar()
+  let id = 'id' in req.query
+    ? Number(req.query['id'])
+    : await mongoService.maxIdCar()
+
   let carSetId = req.body.Car
-  carSetId._id = newId;
+  carSetId._id = id;
   let carSetMoreInfoId = req.body.MoreInfo
-  carSetMoreInfoId.CarId = newId;
+  carSetMoreInfoId.CarId = id;
   let carArray = await mongoService.createNewCar(carSetId)
   let carMoreInfo = await mongoService.createNewCarMoreInfo(carSetMoreInfoId)
-  res.send({id: newId})
+  res.send({ id: id })
 })
 app.listen(3000)
