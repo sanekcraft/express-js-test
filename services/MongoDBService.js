@@ -45,7 +45,7 @@ class MongoDBService {
     async GetAllCars() {
 
         const collection = await this.getCollection(this.DbName, this.Collections.CarList)
-        return await collection.find().toArray()
+        return await collection.find({ IsRecycle: false }).toArray()
     }
 
     async GetCarById(id) {
@@ -166,11 +166,15 @@ class MongoDBService {
     }
     async createNewCar(car) {
         const collection = await this.getCollection(this.DbName, this.Collections.CarList)
-        await collection.replaceOne({ _id: car._id },car,{upsert:true})
+        await collection.replaceOne({ _id: car._id }, car, { upsert: true })
     }
     async createNewCarMoreInfo(moreInfo) {
         const collection = await this.getCollection(this.DbName, this.Collections.CarMoreInfoList)
-        await collection.replaceOne({ _id: moreInfo._id },moreInfo,{upsert:true})
+        await collection.replaceOne({ _id: moreInfo._id }, moreInfo, { upsert: true })
+    }
+    async GetRecycleCarsList(){
+        const collection = await this.getCollection(this.DbName, this.Collections.CarList)
+        return await collection.find({ IsRecycle: true }).toArray()
     }
 }
 

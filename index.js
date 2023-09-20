@@ -94,10 +94,16 @@ app.post(`/createNewCar`, async function (req, res) {
 
   let carSetId = req.body.Car
   carSetId._id = id;
+  carSetId.IsRecycle = false;
   let carSetMoreInfoId = req.body.MoreInfo
   carSetMoreInfoId.CarId = id;
   let carArray = await mongoService.createNewCar(carSetId)
   let carMoreInfo = await mongoService.createNewCarMoreInfo(carSetMoreInfoId)
   res.send({ id: id })
+})
+app.get('/getRecycelCarsList',async function (req, res) {
+  const mongoService = new MongoDBService();
+  let RecycleCarsList = await mongoService.GetRecycleCarsList()
+  res.send(RecycleCarsList)
 })
 app.listen(3000)
