@@ -101,9 +101,24 @@ app.post(`/createNewCar`, async function (req, res) {
   let carMoreInfo = await mongoService.createNewCarMoreInfo(carSetMoreInfoId)
   res.send({ id: id })
 })
-app.get('/getRecycelCarsList',async function (req, res) {
+app.get('/getRecycelCarsList', async function (req, res) {
   const mongoService = new MongoDBService();
   let RecycleCarsList = await mongoService.GetRecycleCarsList()
-  res.send(RecycleCarsList)
+  let FullInfoRecycleCarsList = await mongoService.DecorateCarList(RecycleCarsList)
+  res.send(FullInfoRecycleCarsList)
+})
+app.get('/UpdateRecycleStatus', async function (req, res) {
+  const mongoService = new MongoDBService();
+  let recycleCarID = Number(req.query['id'])
+  let recycleStatus = Number(req.query['status'])
+  let recycleCarS = recycleStatus == 0;
+  await mongoService.UpdateRecycleStatus(recycleCarID,recycleCarS)
+  res.send(200)
+})
+app.get('/deletedCar', async function (req, res) {
+  const mongoService = new MongoDBService();
+  let DeletedCarId = Number(req.query['id'])
+  await mongoService.DeletedCar(DeletedCarId)
+  res.send(200)
 })
 app.listen(3000)

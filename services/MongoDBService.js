@@ -54,9 +54,8 @@ class MongoDBService {
         return (await collection.find({ _id: id }).toArray())[0];
     }
     async GetCarByIdList(idList) {
-
         const collection = await this.getCollection(this.DbName, this.Collections.CarList)
-        return await collection.find({ _id: { $in: idList } }).toArray();
+        return await collection.find({ _id: { $in: idList }, IsRecycle: false }).toArray();
     }
 
     async GetAllManufacturer() {
@@ -132,7 +131,7 @@ class MongoDBService {
     }
     async GetFavCarsID(id) {
         const collection = await this.getCollection(this.DbName, this.Collections.FavCarList)
-        return (await collection.find({ _id: id }).toArray())[0].IdList; // {_id:1, IdList:[...]}
+        return (await collection.find({ _id: id }).toArray())[0].IdList;
     }
 
     async GetFavCarList() {
@@ -149,14 +148,18 @@ class MongoDBService {
         return await collection.updateOne({ _id: 1 }, { $pull: { IdList: id } })
     }
     async FavCarAmount() {
-        const collection = await this.getCollection(this.DbName, this.Collections.FavCarList);
-        let count = (await collection.aggregate([{
-            $match: { _id: 1 },
-        },
-        {
-            $project: { count: { $size: "$IdList" } }
+        const favCarCollection = await this.getCollection(this.DbName, this.Collections.FavCarList);
+        const CarCollection = await this.getCollection(this.DbName, this.Collections.CarList);
 
-        }]).toArray())[0].count;
+        let favList = (await favCarCollection.find({ _id: 1 }).toArray())[0].IdList;
+
+        let count = await CarCollection.countDocuments({
+            $and: [
+                { _id: { $in: favList } },
+                { IsRecycle: false }
+            ]
+        })
+       
         return count
     }
     async maxIdCar() {
@@ -172,9 +175,21 @@ class MongoDBService {
         const collection = await this.getCollection(this.DbName, this.Collections.CarMoreInfoList)
         await collection.replaceOne({ _id: moreInfo._id }, moreInfo, { upsert: true })
     }
-    async GetRecycleCarsList(){
+    async GetRecycleCarsList() {
         const collection = await this.getCollection(this.DbName, this.Collections.CarList)
         return await collection.find({ IsRecycle: true }).toArray()
+    }
+    async UpdateRecycleStatus(id, Status) {
+        const collection = await this.getCollection(this.DbName, this.Collections.CarList)
+        await collection.updateOne({ _id: id }, { $set: { IsRecycle: Status } })
+    }
+    async DeletedCar(id) {
+        const Car = await this.getCollection(this.DbName, this.Collections.CarList)
+        await Car.deleteOne({ _id: id })
+        const MoreInfo = await this.getCollection(this.DbName, this.Collections.CarMoreInfoList)
+        await MoreInfo.deleteOne({ CarId: id })
+        const FavList = await this.getCollection(this.DbName, this.Collections.FavCarList)
+        await FavList.updateOne({ _id: 1 }, { $pull: { IdList: id } })
     }
 }
 
